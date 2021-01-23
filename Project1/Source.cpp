@@ -1,65 +1,75 @@
-﻿#include <iostream>
-#include <vector>
-#include <functional> // Thư viện hỗ trợ sử dụng con trỏ hàm trong C++11
+﻿/*Bài 6 : Viết chương trình tạo mảng 1 chiều a gồm 20 phần tử. Mỗi phần tử mang giá trị ngẫu nhiên thuộc (-10, 10). Sắp xếp mảng theo thứ tự tăng dần của các phần tử. Hiển thị mảng sau khi sắp xếp ra màn hình.*/
 
-using namespace std;
+#include <stdio.h>
+#include <conio.h>
+#include <Windows.h> // Hàm Tạo Số Ngẫu Nhiên.
+#include <time.h> // Time(NULL).
 
-void HoanVi_Pointer(int&, int&);
+void arrayInputRandom(int[], int);
+void arrayOutput(int[], int);
+void SWAP(int*, int*);
+void arrayInterchangeSort(int[], int);
 
 int main()
 {
-#ifndef Biến con trỏ hàm - Trong ngôn ngữ C hoặc C++98
-	void (*PtrFuncSwap)(int&, int&); // Khai báo con trỏ hàm.
-	PtrFuncSwap = HoanVi_Pointer;
+	int ILength = 20;
+	int IArrStatic[100];
 
-	int IValue1 = 5;
-	int IValue2 = 6;
+	arrayInputRandom(IArrStatic, ILength);
+	printf_s("Mang sau khi tao so ngau nhien: ");
+	arrayOutput(IArrStatic, ILength);
 
-	cout << "Truoc Khi Hoan Vi\n";
-	cout << "a = " << IValue1 << "\n";
-	cout << "b = " << IValue2 << "\n";
+	arrayInterchangeSort(IArrStatic, ILength);
+	printf_s("Mang sau khi sap xep tang dan: ");
+	arrayOutput(IArrStatic, ILength);
 
-	//HoanVi_Pointer(IValue1, IValue2);
-
-	// Gọi hàm 1 cách không tường mình.
-	//PtrFuncSwap(IValue1, IValue2);
-
-	// Gọi hàm 1 cách tường minh.
-	(*PtrFuncSwap)(IValue1, IValue2);
-
-	cout << "\nSau Khi Hoan Vi\n";
-	cout << "a = " << IValue1 << "\n";
-	cout << "b = " << IValue2 << "\n";
-#endif // !Biến con trỏ hàm - Trong ngôn ngữ C hoặc C++98
-
-//#ifndef Biến con trỏ hàm - Trong ngôn ngữ C++ version 2011 trở lên
-//	vector<int> IArrVT; // Mảng 1 chiều.
-//	vector<vector<int>> IMatrixVT; // Mảng 2 chiều.
-//
-//	function<void(int&, int&)> PtrFunc = HoanVi_Pointer;
-//	//PtrFunc = HoanVi_Pointer;
-//
-//	int IValue1 = 5;
-//	int IValue2 = 6;
-//
-//	cout << "Truoc Khi Hoan Vi\n";
-//	cout << "a = " << IValue1 << "\n";
-//	cout << "b = " << IValue2 << "\n";
-//
-//	PtrFunc(IValue1, IValue2);
-//
-//	cout << "\nSau Khi Hoan Vi\n";
-//	cout << "a = " << IValue1 << "\n";
-//	cout << "b = " << IValue2 << "\n";
-//#endif // !Biến con trỏ hàm - Trong ngôn ngữ C++ version 2011 trở lên
-
-	system("pause");
+	_getch();
 	return 0;
 }
 
-void HoanVi_Pointer(int& IA, int& IB)
+void arrayInputRandom(int IArr[], int ILength)
 {
-	int ITemp = IA;
-	IA = IB;
-	IB = ITemp;
+	srand(time(NULL)); // Reset thời gian.
+	for (int i = 0; i < ILength; i++)
+	{
+		/*
+			* Công thức random: muốn random trong từ a -> b
+			* rand() % (b - a + 1) + a <=> a + rand() % (b - a + 1)
+			* Giả sử em tạo số ngẫu nhiên trong đoạn từ -10 -> 10
+			* a = -10, b = 10
+			* => rand() % (10 - (-10) + 1) + 1 = rand() % 21 + 1
+			* or 1 + rand() % 21
+			*/
+		IArr[i] = rand() % 21 + 1;
+	}
+}
+
+void arrayOutput(int IArr[], int ILength)
+{
+	for (int i = 0; i < ILength; i++)
+	{
+		printf_s("%d ", IArr[i]);
+	}
+	printf_s("\n");
+}
+
+void SWAP(int* IA, int* IB)
+{
+	int ITemp = *IA;
+	*IA = *IB;
+	*IB = ITemp;
+}
+
+void arrayInterchangeSort(int IArr[], int ILength)
+{
+	for (int i = 0; i < ILength - 1; ++i)
+	{
+		for (int j = i + 1; j < ILength; ++j)
+		{
+			if (IArr[i] > IArr[j])
+			{
+				SWAP(&IArr[i], &IArr[j]);
+			}
+		}
+	}
 }
