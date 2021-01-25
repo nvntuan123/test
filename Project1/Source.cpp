@@ -1,75 +1,30 @@
-﻿/*Bài 6 : Viết chương trình tạo mảng 1 chiều a gồm 20 phần tử. Mỗi phần tử mang giá trị ngẫu nhiên thuộc (-10, 10). Sắp xếp mảng theo thứ tự tăng dần của các phần tử. Hiển thị mảng sau khi sắp xếp ra màn hình.*/
+﻿/*
+* Đề 2: Viết chương trình tạo menu và định nghĩa các hàm để thực hiện các công việc sau:
+	a) Nhập hai chuỗi str1 và str2 (mỗi chuỗi không quá 255 ký tự và chiều dài của str2 ≤ str1) và ghi vào tập tin input2.txt (2 điểm).
+	b) Đếm số lần chuỗi str2 xuất hiện trong chuỗi str1 (2 điểm).
+	c) Chèn chuỗi str2 vào str1 tại vị trí được nhập từ bàn phím (2 điểm).
+	d) Xóa một số ký tự trong chuỗi str1 với số ký tự và vị trí cần xóa được nhập từ bàn phím (2 điểm).
+	e) Ghi tất cả kết quả thực hiện được vào tập tin tin output2.txt (2 điểm).
+Bài tập này tổng hợp 2 kiến thức:
+1. Kiến thức về chuỗi.
+2. Kiến thức về tập tin.
+*/
 
-#include <stdio.h>
-#include <conio.h>
-#include <Windows.h> // Hàm Tạo Số Ngẫu Nhiên.
-#include <time.h> // Time(NULL).
+#include <iostream>
 
-void arrayInputRandom(int[], int);
-void arrayOutput(int[], int);
-void SWAP(int*, int*);
-void arrayInterchangeSort(int[], int);
+void foo(float);
 
 int main()
 {
-	int ILength = 20;
-	int IArrStatic[100];
+	void(*fn)(float) = foo;
 
-	arrayInputRandom(IArrStatic, ILength);
-	printf_s("Mang sau khi tao so ngau nhien: ");
-	arrayOutput(IArrStatic, ILength);
-
-	arrayInterchangeSort(IArrStatic, ILength);
-	printf_s("Mang sau khi sap xep tang dan: ");
-	arrayOutput(IArrStatic, ILength);
-
-	_getch();
+	system("pause");
 	return 0;
 }
 
-void arrayInputRandom(int IArr[], int ILength)
+void foo(float _Fn)
 {
-	srand(time(NULL)); // Reset thời gian.
-	for (int i = 0; i < ILength; i++)
-	{
-		/*
-			* Công thức random: muốn random trong từ a -> b
-			* rand() % (b - a + 1) + a <=> a + rand() % (b - a + 1)
-			* Giả sử em tạo số ngẫu nhiên trong đoạn từ -10 -> 10
-			* a = -10, b = 10
-			* => rand() % (10 - (-10) + 1) + 1 = rand() % 21 + 1
-			* or 1 + rand() % 21
-			*/
-		IArr[i] = rand() % 21 + 1;
-	}
+	std::cout << "Ahihi\n";
+	std::cout << "Fn = " << _Fn << "\n";
 }
 
-void arrayOutput(int IArr[], int ILength)
-{
-	for (int i = 0; i < ILength; i++)
-	{
-		printf_s("%d ", IArr[i]);
-	}
-	printf_s("\n");
-}
-
-void SWAP(int* IA, int* IB)
-{
-	int ITemp = *IA;
-	*IA = *IB;
-	*IB = ITemp;
-}
-
-void arrayInterchangeSort(int IArr[], int ILength)
-{
-	for (int i = 0; i < ILength - 1; ++i)
-	{
-		for (int j = i + 1; j < ILength; ++j)
-		{
-			if (IArr[i] > IArr[j])
-			{
-				SWAP(&IArr[i], &IArr[j]);
-			}
-		}
-	}
-}
